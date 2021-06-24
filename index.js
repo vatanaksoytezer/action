@@ -34,11 +34,10 @@ function addToken(url, token) {
 
 async function main() {
     await core.group('install pre-commit', async () => {
-        await exec.exec('mkdir', ['tmp/']);
-        await exec.exec('cd', ['tmp/']);
+        // Ignore setup.cfg file
+        await exec.exec('rm', ['-rf', 'setup.cfg'])
         await exec.exec('pip', ['install', 'pre-commit']);
         await exec.exec('pip', ['freeze', '--local']);
-        await exec.exec('cd', ['..']);
     });
 
     const args = [
